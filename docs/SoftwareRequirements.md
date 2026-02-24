@@ -123,16 +123,30 @@ The system shall validate and sanitize input data to prevent malformed requests.
 ---
 
 # 6. Project Constraints
+1. The system is initially developed as a prototype project and must not be used for real-world applications.
+2. No real patient data is processed.
+3. Risk management and hazard analysis are outside current project scope.
+4. The system is deployed locally using Docker. Cloud deployment is a future task.
+5. Formal IEC 62304 certification activities are outside current project scope.
+6. Formal FDA approval activities are outside current project scope.
 
 ---
 
 # 7. Traceability Plan
+Each requirement (FR, NFR, and SEC) shall:
+1. Map to one or more GitHub issues.
+2. Map to one or more unit or integration tests.
+3. Be referenced in the Merge Request implementing the requirement.
 
 ---
 
 # 8. Verification Plan
+1. Unit tests shall validate business logic.
+2. Integration tests shall validate authentication and lifecycle workflows.
 
 ---
 # 9. Future Scope
-
+1. Risk management documentation.
+2. Safety classification as per the IEC 62304 standards.
+3. Cloud deployment architecture.
 ---
