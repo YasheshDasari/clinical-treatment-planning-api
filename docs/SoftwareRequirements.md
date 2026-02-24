@@ -1,7 +1,7 @@
 # Clinical Treatment Planning API: Software Requirements Specification (SRS)
 
 Version: 0.1 <br>
-Status: First draft <br>
+Status: First Draft <br>
 Author: Yashesh Dasari <br> 
 Date: February 24, 2026 <br>
 
@@ -160,5 +160,21 @@ Each requirement (FR, NFR, and SEC) shall:
 1. Risk management documentation.
 2. Safety classification as per the IEC 62304 standards.
 3. Cloud deployment architecture.
+
+---
+
+# 10. Revision Details
+
+## Version 0.1 
+Created on: February 24, 2026
+Author: Yashesh Dasari  
+Status: First Draft
+
+Changes:
+1. Initial creation of Software Requirements Specification (SRS).
+2. Defined system scope, actors, and architectural context.
+3. Documented functional, non-functional, and security requirements.
+4. Established traceability and verification plans.
+5. Declared project constraints and future scope considerations.
 
 ---
