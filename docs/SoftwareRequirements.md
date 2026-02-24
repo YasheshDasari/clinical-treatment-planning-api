@@ -1,9 +1,9 @@
 # Clinical Treatment Planning API: Software Requirements Specification (SRS)
 
-Version: 0.1
-Status: First draft
-Author: Yashesh Dasari
-Date: February 24, 2026
+Version: 0.1 <br>
+Status: First draft <br>
+Author: Yashesh Dasari <br> 
+Date: February 24, 2026 <br>
 
 Find the revision details at the end of the document.
 
@@ -50,4 +50,79 @@ The system operates as a backend service within a clinical software ecosystem. I
 does not directly control medical hardware and is limited to configuration and workflow management.
 ---
 
+# 3. Functional Requirements
+This section outlines the functional requirements of the Clinical Treatment Planning API.
 
+### FR-1: User Authentication
+The system shall authenticate registered users using email and password credentials.
+
+### FR-2: JWT Issuance
+The system shall issue a JWT upon successful authentication.
+
+### FR-3: Role-Based Access Control
+The system shall restrict access to protected endpoints based on user role.
+   
+<!-- CRUD operations -->
+### FR-4: Create Clinical Treatment Plan
+The system shall allow a Clinician to create a treatment plan with defined parameters.
+
+### FR-5: Access Treatment Plan
+The system shall allow authorized users to access and retrieve treatment plan details.
+
+### FR-6: Update Treatment Plan
+The system shall allow modification of treatment plans only while in 'Draft' status.
+
+### FR-7: Approve Treatment Plan
+The system shall allow Admin users to approve a treatment plan.
+
+### FR-8: Treatment Plan Status Control
+The system shall enforce valid treatment plan status transitions. 
+
+### FR-9: Input Validation
+The system shall validate all incoming data using defined constraints.
+
+---
+
+# 4. Non-Functional Requirements
+This section outlines the non-functional requirements of the Clinical Treatment Planning API.
+
+### NFR-1: Modularity
+
+### NFR-2: Containerized
+
+### NFR-3: Data Persistence
+
+### NFR-4: Performance
+
+### NFR-5: Maintainability
+
+### NFR-6: Testability
+
+---
+
+# 5. Security Requirements
+
+### SEC-1: Password Encryption
+
+### SEC-2: Endpoint Protection
+
+### SEC-3: Authorization Enforcement
+
+### SEC-4: Input Sanitization
+
+---
+
+# 6. Project Constraints
+
+---
+
+# 7. Traceability Plan
+
+---
+
+# 8. Verification Plan
+
+---
+# 9. Future Scope
+
+---
