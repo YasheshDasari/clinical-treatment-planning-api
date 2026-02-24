@@ -87,28 +87,38 @@ The system shall validate all incoming data using defined constraints.
 This section outlines the non-functional requirements of the Clinical Treatment Planning API.
 
 ### NFR-1: Modularity
+The system shall follow a modular architecture separating the routing, services, and data access layers. 
 
 ### NFR-2: Containerized
+The system shall support Docker-based deployment.
 
 ### NFR-3: Data Persistence
+The system shall persist all treatment plans in a PostgreSQL database.
 
 ### NFR-4: Performance
+The system shall respond to API requests within 500ms under normal, local conditions.
 
 ### NFR-5: Maintainability
+The system shall use TypeScript for type safety and maintainability.
 
 ### NFR-6: Testability
+The system shall implement unit and integration tests for business logic.
 
 ---
 
 # 5. Security Requirements
 
 ### SEC-1: Password Encryption
+The system shall hash user passwords before storage.
 
 ### SEC-2: Endpoint Protection
+The system shall protect all treatment plan endpoints using JWT authentication.
 
 ### SEC-3: Authorization Enforcement
+The system shall enforce RBAC rules at the API layer.
 
 ### SEC-4: Input Sanitization
+The system shall validate and sanitize input data to prevent malformed requests.
 
 ---
 
