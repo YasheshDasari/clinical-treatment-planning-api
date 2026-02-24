@@ -12,7 +12,7 @@ Find the revision details at the end of the document.
 # 1. Introduction
 ## 1.1 Purpose
 This document defines the functional, non-functional, and security requirements for the Clinical Treatment Planning API. 
-The system architect is aligned with the principles outlined in IEC 62304: Medical Software Lifecycle Processes, emphasizing traceability, structured 
+The system architect is aligned with the principles outlined in [International Electrotechnical Commission 62304](https://webstore.iec.ch/en/publication/22794) (IEC 62304): Medical device software - Software life cycle processes, emphasizing traceability, structured 
 documentation, and verification planning.   
 
 ## 1.2 Scope
@@ -35,6 +35,10 @@ The system is designed for Docker-based local deployment. The system architectur
 1. JWT: JSON Web Token. It is an open standard (RFC 7519) that defines a compact and self-contained way for secure information exchange using JSON objects.
 1. REST: Representational State Transfer. It is an architectural standard that guides the design and development of processes which enable interaction with data stored on web servers.
 1. RBAC: Role-Based Access Control. It is a cybersecurity model that restricts system access to authorized users based on pre-defined rules.
+1. Treatment Plan Status:
+   1. Draft: Initial editable state.
+   1. Approved: Finalized state, no further modification allowed.
+
 ---
 
 # 2. System Overview 
@@ -48,6 +52,7 @@ There are two types of user roles (also called actors):
 ## 2.1 System Context
 The system operates as a backend service within a clinical software ecosystem. It exposes REST endpoints consumed by client applications. The API 
 does not directly control medical hardware and is limited to configuration and workflow management.
+
 ---
 
 # 3. Functional Requirements
@@ -76,10 +81,13 @@ The system shall allow modification of treatment plans only while in 'Draft' sta
 The system shall allow Admin users to approve a treatment plan.
 
 ### FR-8: Treatment Plan Status Control
-The system shall enforce valid treatment plan status transitions. 
+The system shall enforce valid treatment plan status transitions, from 'Draft' to 'Approved'. 
 
 ### FR-9: Input Validation
 The system shall validate all incoming data using defined constraints.
+
+### FR-10: Audit Logging
+The system shall record audit logs for treatment plan creation, modification, and approval events.
 
 ---
 
@@ -96,7 +104,7 @@ The system shall support Docker-based deployment.
 The system shall persist all treatment plans in a PostgreSQL database.
 
 ### NFR-4: Performance
-The system shall respond to API requests within 500ms under normal, local conditions.
+The system shall respond to API requests within 500ms under single-user local development conditions.
 
 ### NFR-5: Maintainability
 The system shall use TypeScript for type safety and maintainability.
@@ -119,6 +127,9 @@ The system shall enforce RBAC rules at the API layer.
 
 ### SEC-4: Input Sanitization
 The system shall validate and sanitize input data to prevent malformed requests.
+
+### SEC-5: Immutable Audit Logs
+Audit records shall not be modifiable through public API endpoints.
 
 ---
 
@@ -149,4 +160,5 @@ Each requirement (FR, NFR, and SEC) shall:
 1. Risk management documentation.
 2. Safety classification as per the IEC 62304 standards.
 3. Cloud deployment architecture.
+
 ---
