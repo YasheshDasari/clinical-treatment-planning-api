@@ -94,22 +94,26 @@ The system shall record audit logs for treatment plan creation, modification, an
 # 4. Non-Functional Requirements
 This section outlines the non-functional requirements of the Clinical Treatment Planning API.
 
-### NFR-1: Modularity
+### NFR-1: Regulatory Considerations
+The system development lifecycle shall be aligned with selected principles outlined in IEC 62304, 
+including requirements documentation, architectural design documentation, traceability planning, and verification planning.
+
+### NFR-2: Modularity
 The system shall follow a modular architecture separating the routing, services, and data access layers. 
 
-### NFR-2: Containerized
+### NFR-3: Containerized
 The system shall support Docker-based deployment.
 
-### NFR-3: Data Persistence
+### NFR-4: Data Persistence
 The system shall persist all treatment plans in a PostgreSQL database.
 
-### NFR-4: Performance
+### NFR-5: Performance
 The system shall respond to API requests within 500ms under single-user local development conditions.
 
-### NFR-5: Maintainability
+### NFR-6: Maintainability
 The system shall use TypeScript for type safety and maintainability.
 
-### NFR-6: Testability
+### NFR-7: Testability
 The system shall implement unit and integration tests for business logic.
 
 ---
