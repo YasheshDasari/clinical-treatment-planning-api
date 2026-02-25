@@ -14,6 +14,8 @@ The Clinical Treatment Planning API is a backend-only REST API implemented using
 according to layered design principles and aligned with selected principles outlined in [International Electrotechnical Commission 62304](https://webstore.iec.ch/en/publication/22794) (IEC 62304): Medical device software - Software life cycle processes. 
 The system does not interface with medical hardware and is purposed for workflow and configuration management.
 
+---
+
 # 2. System Context Design
 The system acts as the system boundary and external systems interact only through secured REST endpoints. 
 The following System Context Diagram illustrates the Clinical Treatment Planning API as the system boundary and 
@@ -28,6 +30,8 @@ DB[(PostgreSQL Database)]
 Client -->|HTTPS REST| API
 API -->|ORM| DB
 ```
+
+---
 
 # 3. System Architecture
 The system follows a layered architecture model, as illustrated by the Logical Layered Architecture Diagram below.
@@ -60,3 +64,87 @@ The Repository Layer is responsible for the following tasks:
 1. Data persistence
 1. Database queries
 1. ORM interaction
+
+---
+
+# 4. Module Decomposition
+The system is divided into the following core modules:
+1. Authentication Module
+2. User Module
+3. Treatment Plan Module
+4. Audit Module
+
+The following Module Decomposition Diagram illustrates the logical separation of concerns and directional dependencies between system modules.
+
+```mermaid
+graph TD
+    AuthModule[Authorization Module]
+    UserModule[User Module]
+    TreatmentPlanModule[Treatment Plan Module]
+    AuditModule[Audit Module]
+
+    AuthModule --> UserModule
+    TreatmentPlanModule --> UserModule
+    TreatmentPlanModule --> AuditModule
+    
+```
+
+# 5. Authentication and Authorization Architecture
+The following Sequence Diagram illustrates the runtime interaction between a user and the system during authentication and subsequent access to protected endpoints. 
+The diagram depicts the following:
+1. Credential validation flow
+2. JWT issuance process
+3. Token validation 
+4. Role-Based Access Control enforcement
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant API
+    participant DB
+
+    User->>API: Login Request (Email + Password)
+    API->>DB: Validate Credentials
+    DB-->>API: User Record
+    API-->>User: JWT Token
+
+    User->>API: Protected Request + JWT
+    API->>API: Validate JWT
+    API->>API: Enforce RBAC
+    API-->>User: Response
+```
+
+### 5.1 Architectural intent to satisfy Software Requirements
+1. Password hashing and validation occur within the Auth module, satisfying SEC-1.
+2. JWT issuance satisfies FR-2.
+3. RBAC enforcement satisfies FR-3 and SEC-3.
+4. All protected endpoints require valid JWT authentication, satisfying SEC-2.
+
+Authentication and authorization logic is enforced prior to business logic execution to ensure controlled access to system resources.
+
+---
+
+# 6. Treatment Plan Lifecycle Architecture
+The system allows two Treatment Plan states as listed below:
+1. Draft
+2. Approved
+
+The following State Diagram illustrates the lifecycle states of a Treatment Plan and the 
+valid transitions between those states.
+
+```mermaid
+stateDiagram-v2
+    [*] --> Draft
+    Draft --> Approved
+    Approved --> [*]
+```
+
+### 6.1 Architectural intent to satisfy Software Requirements
+1. Treatment Plans are initially created in the Draft state, satisfying FR-4.
+2. Only Admin users may transition a plan from Draft to Approved, satisfying FR-7.
+3. No reverse transitions are permitted, satisfying FR-8.
+4. Approved plans cannot be modified, satisfying FR-6.
+
+State transition validation is enforced within the Service layer to ensure business rule integrity.
+
+---
