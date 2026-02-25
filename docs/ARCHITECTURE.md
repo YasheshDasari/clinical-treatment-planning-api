@@ -148,3 +148,57 @@ stateDiagram-v2
 State transition validation is enforced within the Service layer to ensure business rule integrity.
 
 ---
+
+# 7. Data Model
+The following Entity-Relationship Diagram (ERD) illustrates the logical data structure and relationships between 
+primary entities within the system.
+
+```mermaid
+erDiagram
+    USER {
+        UUID id
+        string email
+        string passwordHash
+        string role
+    }
+
+    TREATMENT_PLAN {
+        UUID id
+        UUID createdBy
+        string status
+        json parameters
+    }
+
+    USER ||--o{ TREATMENT_PLAN : creates
+```
+
+### 7.1 Architectural intent to satisfy Software Requirements
+The data model supports FR-4 through FR-9 and SEC-1 through SEC-4 as described below.
+1. Each Treatment Plan is associated with exactly one User (creator), supporting FR-4, FR-5, and FR-7.
+1. Role attributes determine authorization scope, supporting FR-3 and SEC-3.
+1. Status field supports lifecycle enforcement, supporting FR-6, FR-7, and FR-8.
+1. Parameters field supports structured configuration storage, supporting FR-4, FR-9, and SEC-4.
+1. Password hash storage within USER entity, supporting SEC-1.
+
+---
+
+# 8. Security Architecture
+Security controls are implemented at the following layers:
+1. Input validation at Controller layer
+1. JWT validation middleware
+1. RBAC enforcement in Guards
+1. Status transition validation in Service layer
+1. Password hashing before persistence
+
+No public endpoint bypasses authentication except login.
+
+---
+
+# 9. Architectural Constraints
+1. Backend-only implementation.
+2. Docker-based local deployment.
+3. PostgreSQL as primary database.
+4. No real patient data.
+5. Aligns with selected IEC 62304 principles, but not formally certified under IEC 62304.
+
+---
