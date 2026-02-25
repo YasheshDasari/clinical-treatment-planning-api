@@ -194,7 +194,18 @@ No public endpoint bypasses authentication except login.
 
 ---
 
-# 9. Architectural Constraints
+# 9. Requirement Traceability Mapping
+| Module                | Related Requirements     |
+|-----------------------| ------------------------ |
+| Authorization Module  | FR-1, FR-2, SEC-1, SEC-2 |
+| User Module           | FR-3                     |
+| Treatment Plan Module | FR-4 to FR-9             |
+| Security Layer        | SEC-2, SEC-3, SEC-4      |
+| Architecture          | NFR-1, NFR-2, NFR-5      |
+
+---
+
+# 10. Architectural Constraints
 1. Backend-only implementation.
 2. Docker-based local deployment.
 3. PostgreSQL as primary database.
