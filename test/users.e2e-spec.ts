@@ -27,19 +27,21 @@ describe('Users (e2e)', () => {
 
     afterAll(async () => {
         await app.close();
+        await dataSource.destroy();
     });
 
     it('POST /users should create a user', async () => {
         return request(app.getHttpServer())
             .post('/users')
             .send({
-                username: 'testUser',
                 password: 'testPassword',
                 email: 'user@test.com'
             })
             .expect(201)
             .expect(res => {
-            expect(res.body).toHaveProperty('id')
+            expect(res.body).toHaveProperty('id');
+            expect(res.body.email).toBe('user@test.com');
+            expect(res.body.password).toBe('testPassword');
             });
     });
 });
