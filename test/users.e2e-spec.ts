@@ -1,8 +1,3 @@
-process.env.DB_HOST = 'localhost';
-process.env.DB_USER = 'postgres';
-process.env.DB_PASSWORD = 'Fus@2026';
-process.env.DB_NAME = 'clinical_test_db';
-
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import request from 'supertest';
@@ -22,12 +17,17 @@ describe('Users (e2e)', () => {
         await app.init();
 
         dataSource = app.get(DataSource);
-        await dataSource.synchronize(true); // drops & recreates schema
+        await dataSource.synchronize(true);
     });
 
     afterAll(async () => {
         await app.close();
-        await dataSource.destroy();
+        try {
+            await dataSource.destroy();
+        }
+        catch (e) {
+            // connection already closed by app.close()
+        }
     });
 
     it('POST /users should create a user', async () => {
@@ -41,7 +41,7 @@ describe('Users (e2e)', () => {
             .expect(res => {
             expect(res.body).toHaveProperty('id');
             expect(res.body.email).toBe('user@test.com');
-            expect(res.body.password).toBe('testPassword');
+            expect(res.body.password).toBe('testPassword'); // TODO: API must not return the password! Update test, fix the implementation
             });
     });
 });
